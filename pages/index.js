@@ -15,6 +15,7 @@ export default function Index() {
   //Group States
   const [groups, setGroups] = useState([]);
   const [openInputToAddGroup, setOpenInputToAddGroup] = useState(false);
+  const [showGroupPopup, setShowGroupPopup] = useState(false);
 
   //Task States
   const [taskList, setTaskList] = useState([]);
@@ -22,6 +23,7 @@ export default function Index() {
   const [selectedTaskID, setSelectedTaskID] = useState("");
   const [activeTaskIDForModal, setActiveTaskIDForModal] = useState("");
   const [taskNo, setTaskNo] = useState({});
+  const [activeGroupC, setActiveGroupC] = useState("");
 
   useEffect(() => {
     const getGroup = JSON.parse(localStorage.getItem("groupsName"));
@@ -152,6 +154,10 @@ export default function Index() {
     setTaskList,
     setActiveTaskIDForModal,
     taskNo,
+    showGroupPopup,
+    setShowGroupPopup,
+    activeGroupC,
+    setActiveGroupC,
   };
 
   const renderGroups = () => {
@@ -202,6 +208,7 @@ export default function Index() {
         e.stopPropagation();
         setOpenInputToAddGroup(false);
         setEnteredText("");
+        setShowGroupPopup(false);
       }}
     >
       <Header />

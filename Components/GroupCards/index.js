@@ -32,11 +32,13 @@ export default function GroupCards({
   setTaskList,
   setActiveTaskIDForModal,
   taskNo,
+  showGroupPopup,
+  setShowGroupPopup,
+  activeGroupC,
+  setActiveGroupC,
 }) {
   const dragItem = useRef();
   const dragItemTaskID = useRef();
-
-  const [showGroupPopup, setShowGroupPopup] = useState(false);
 
   const dragAndDropAnimation = (e, display) => {
     let isMobile = window.matchMedia("(max-width: 960px)");
@@ -48,7 +50,6 @@ export default function GroupCards({
     }
 
     const target = e.target;
-    console.log(target);
 
     setTimeout(() => {
       target.style.display = display;
@@ -98,8 +99,6 @@ export default function GroupCards({
     setShowGroupPopup(false);
   };
 
-  console.log(taskNo[groupID], taskNo, groupID);
-
   const inputProps = {
     enteredText,
     setEnteredText,
@@ -140,11 +139,12 @@ export default function GroupCards({
             sx={[styles.hoverStyle, styles.groupPopup]}
             onClick={(e) => {
               e.stopPropagation();
+              setActiveGroupC(groupID);
               setShowGroupPopup(true);
             }}
           >
             <Image src={moreOptions} width={30} height={30} />
-            {showGroupPopup && (
+            {showGroupPopup && groupID === activeGroupC && (
               <Card sx={styles.groupOptions}>
                 <SidePopup
                   label={"Delete"}
