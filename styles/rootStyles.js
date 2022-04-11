@@ -8,8 +8,10 @@ export const styles = {
     maxWidth: "100%",
     margin: "auto",
     marginLeft: "150px",
-    minWidth : 'fit-content',
-    ["@media (min-width:780px)"]: {},
+    minWidth: "fit-content",
+    ["@media (max-width:960px)"]: {
+      marginLeft: "50px",
+    },
   },
 
   addGroupContainer: {
