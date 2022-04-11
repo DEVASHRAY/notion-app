@@ -39,6 +39,14 @@ export default function GroupCards({
   const [showGroupPopup, setShowGroupPopup] = useState(false);
 
   const dragAndDropAnimation = (e, display) => {
+    let isMobile = window.matchMedia("(max-width: 960px)");
+
+    if (isMobile.matches) {
+      display = "block";
+    } else {
+      display = display;
+    }
+
     const target = e.target;
     console.log(target);
 

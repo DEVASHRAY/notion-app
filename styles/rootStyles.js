@@ -9,10 +9,11 @@ export const styles = {
     margin: "auto",
     // marginLeft: "150px",
     minWidth: "fit-content",
-    padding: "0px 100px",
+    padding: "40px 100px",
     ["@media (max-width:960px)"]: {
       // marginLeft: "10px",
-      padding: "0px 10px",
+      padding: "15px 10px",
+
     },
   },
 
