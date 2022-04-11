@@ -7,10 +7,12 @@ export const styles = {
     paddingTop: 2,
     maxWidth: "100%",
     margin: "auto",
-    marginLeft: "150px",
+    // marginLeft: "150px",
     minWidth: "fit-content",
+    padding: "0px 100px",
     ["@media (max-width:960px)"]: {
-      marginLeft: "50px",
+      // marginLeft: "10px",
+      padding: "0px 10px",
     },
   },
 
