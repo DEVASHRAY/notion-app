@@ -57,6 +57,9 @@ export default function GroupCards({
   };
 
   const dragStart = (e, position, taskID) => {
+    console.log("dragStart", position);
+    localStorage.setItem("startPosition", JSON.stringify(position));
+
     dragItem.current = position;
     dragItemTaskID.current = taskID;
 
@@ -65,9 +68,28 @@ export default function GroupCards({
 
   const dragEnter = (e, position, taskID) => {
     localStorage.setItem("moveToGroup", JSON.stringify(position));
+
+    console.log("dragEnter", position, dragItemTaskID.current);
+
+    if (position != localStorage.getItem("startPosition")) {
+      const element = document.getElementById(position);
+      element.style.backgroundColor = "lightgrey";
+    } else {
+      const element = document.getElementById(position);
+      element.style.backgroundColor = "#FFF";
+    }
+
+    // element.style.backgroundColor = "red";
   };
 
   const drop = (e, groupID, taskID) => {
+    if (groupID === parseInt(localStorage.getItem("startPosition"))) {
+      const element = document.getElementById(
+        parseInt(localStorage.getItem("moveToGroup"))
+      );
+      element.style.backgroundColor = "#FFF";
+    }
+    console.log("drop ", groupID);
     dragAndDropAnimation(e, "block");
 
     const taskListCopy = [...taskList];
@@ -111,9 +133,11 @@ export default function GroupCards({
     <Box>
       <Box sx={styles.StatusContainer}>
         <Box
+          id={groupID}
           sx={{
             display: "flex",
             alignItems: "center",
+            backgroundColor: "#FFF",
           }}
         >
           <Image src={status} width={20} height={20} />
@@ -192,7 +216,7 @@ export default function GroupCards({
                 }}
                 onDragStart={(e) => dragStart(e, groupID, task.taskID)}
                 onDragEnter={(e) => dragEnter(e, groupID)}
-                onDragEnd={drop}
+                onDragEnd={(e) => drop(e, groupID)}
               >
                 <TaskCards task={task} />
               </Box>
@@ -218,7 +242,7 @@ export default function GroupCards({
         }}
         onDragStart={(e) => dragStart(e, groupID, task.taskID)}
         onDragEnter={(e) => dragEnter(e, groupID)}
-        onDragEnd={drop}
+        onDragEnd={(e) => drop(e, groupID)}
       >
         <Image src={addIcon} width={30} height={30} />
         <Typography>New</Typography>
